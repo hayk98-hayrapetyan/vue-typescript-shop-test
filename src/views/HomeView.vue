@@ -1,31 +1,54 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { getCategories, getProducts } from '@/services/api';
-import type { Category } from '@/types';
+import type { Category, Product } from '@/types';
+import ProductCard from '@/components/ProductCard.vue'
+import CategoryCard from '@/components/CategoryCard.vue'
+import Loading from '@/components/Loading.vue'
 
+const isLoading = ref(false)
+const errorMessage = ref<string>();
 const categories = ref<Category[]>([]);
+const products = ref<Product[]>([]);
 
 const fetchCategories = async () => {
-  const { data } = await getCategories();
+  try {
+    isLoading.value = true;
+    errorMessage.value = undefined;
 
-  categories.value = data.items
+    const [categoriesData, productsData] = await Promise.all([
+      getCategories(), 
+      getProducts()
+    ])
+
+    categories.value = categoriesData.data.items
+    products.value = productsData.data.items
+  } catch(_){
+    errorMessage.value = 'Failed to load data. Please try again later.';
+  } finally {
+    isLoading.value = false
+  }
 };
 
 fetchCategories();
 </script>
 
 <template>
-  <div class="p-4">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="px-4 py-12">
+    <Loading v-if="isLoading" />
+    <div v-else-if="errorMessage" class="text-red-500 font-bold">{{ errorMessage }}</div>
+    <div v-else class="flex flex-col gap-12">
       <div>
         <h1 class="text-2xl font-bold mb-4">Categories</h1>
-        <ul>
-          <li v-for="category in categories" :key="category.id" class="mb-2">
-            <a class="text-blue-500 hover:underline">
-              {{ category.name }}
-            </a>
-          </li>
-        </ul>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <CategoryCard  v-for="category in categories" :key="category.id" :category />
+        </div>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold mb-4">Products</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <ProductCard v-for="product in products" :key="product.id" :product />
+        </div>
       </div>
     </div>
   </div>
