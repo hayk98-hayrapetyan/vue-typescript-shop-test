@@ -15,7 +15,7 @@
       <h1 class="text-2xl font-bold">{{ product.name }}</h1>
       <p class="text-gray-700" v-html="product.description" />
       <div class="text-lg font-semibold text-gray-900">{{ product.defaultDisplayedPriceFormatted }}</div>
-      <button @click="addToCart" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded max-w-64">
+      <button :disabled="isAdded" @click="cartStore.addProductToCart(product.id)" class="bg-blue-500 hover:bg-blue-700 disabled:bg-gray-400 hover:disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded max-w-64">
         Buy
       </button>
     </div>
@@ -23,16 +23,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { getProductById } from '@/services/api';
 import type { Product } from '@/types';
 import Loading from '@/components/Loading.vue';
+import { useCartStore } from '@/stores/cart'
+
+const cartStore = useCartStore()
 
 const route = useRoute();
 const product = ref<Product>();
 const isLoading = ref(false);
 const currentSlide = ref(0);
+
+const isAdded = computed(() => {
+  return product.value && cartStore.cardProducts.includes(product.value.id)
+})
 
 const fetchProduct = async (id: string) => {
   try {
@@ -48,18 +55,13 @@ const fetchProduct = async (id: string) => {
   }
 };
 
-const addToCart = () => {
-  if (product.value) {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    cart.push(product.value);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert('Product added to cart!');
-  }
-};
-
 const goToSlide = (index: number) => {
   currentSlide.value = index;
 };
 
-watch(() => route.params.id, fetchProduct, { immediate: true })
+watch(() => route.params, (params) => {
+  if(params.id){
+    fetchProduct(params.id as string)
+  }
+}, { immediate: true })
 </script>
