@@ -5,8 +5,11 @@ import type { AxiosResponse } from 'axios'
 export const getCategories = (): Promise<AxiosResponse<Response<Category>>> =>
   axios.get('/categories')
 
-export const getProducts = (categoryId: number): Promise<AxiosResponse<Response<Product>>> =>
-  axios.get(`/products?category=${categoryId}`)
+export const getProducts = (): Promise<AxiosResponse<Response<Product>>> => axios.get(`/products`)
 
-export const getProduct = (productId: number): Promise<AxiosResponse<Response<Product>>> =>
+export const getProductsByCategoryId = (
+  categoryId: number
+): Promise<AxiosResponse<Response<Product>>> => axios.get(`/products?category=${categoryId}`)
+
+export const getProductById = (productId: number): Promise<AxiosResponse<Response<Product>>> =>
   axios.get(`/products/${productId}`)
