@@ -11,7 +11,7 @@ const errorMessage = ref<string>();
 const categories = ref<Category[]>([]);
 const products = ref<Product[]>([]);
 
-const fetchCategories = async () => {
+(async () => {
   try {
     isLoading.value = true;
     errorMessage.value = undefined;
@@ -28,9 +28,7 @@ const fetchCategories = async () => {
   } finally {
     isLoading.value = false
   }
-};
-
-fetchCategories();
+})()
 </script>
 
 <template>

@@ -14,29 +14,27 @@ if(cardProducts){
 </script> 
 
 <template>
-  <div class="px-8 py-4">
-    <header class="flex justify-between items-center">
-      <router-link to="/">
+  <div>
+    <header class="flex justify-between items-center sticky top-0 bg-white shadow-md py-4 px-8">
+      <RouterLink to="/">
         <img alt="Vue logo" class="h-6" src="https://files.readme.io/13c53b7-small-Ecwid_LSLockup_BlackRGB_Ecwid_EN.png" height="24" />
-      </router-link>
+      </RouterLink>
 
-      <div class="wrapper">
-        <nav class="flex gap-4">
-          <router-link to="/">
-            <Home class="h-6 shrink-0 " />
-          </router-link>
-          <router-link to="/cart">
-            <div class="relative inline-block">
-              <Cart class="h-6 shrink-0 " />
-              <div v-if="cartStore.getCount" class="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 flex items-center justify-center rounded-full text-[10px] leading-[14px]">
-                {{ cartStore.getCount }}
-              </div>
-            </div>
-          </router-link>
-        </nav>
-      </div>
+      <nav class="flex gap-4">
+        <RouterLink to="/">
+          <Home class="h-6 shrink-0 " />
+        </RouterLink>
+        <RouterLink to="/cart" class="relative inline-block">
+          <Cart class="h-6 shrink-0 " />
+          <span v-if="cartStore.getCount" class="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 flex items-center justify-center rounded-full text-[10px] leading-[14px]">
+            {{ cartStore.getCount }}
+          </span>
+        </RouterLink>
+      </nav>
     </header>
 
-    <RouterView />
+    <div class="px-8 py-4">
+      <RouterView />
+    </div>
   </div>
 </template>
