@@ -1,3 +1,24 @@
+<template>
+  <div class="py-12">
+    <Loading v-if="isLoading" />
+    <div v-else-if="errorMessage" class="text-red-500 font-bold">{{ errorMessage }}</div>
+    <div v-else class="flex flex-col gap-12">
+      <div>
+        <h1 class="text-2xl font-bold mb-4">Categories</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <CategoryCard  v-for="category in categories" :key="category.id" :category />
+        </div>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold mb-4">Products</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <ProductCard v-for="product in products" :key="product.id" :product />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref } from 'vue';
 import { getCategories, getProducts } from '@/services/api';
@@ -30,24 +51,3 @@ const products = ref<Product[]>([]);
   }
 })()
 </script>
-
-<template>
-  <div class="px-4 py-12">
-    <Loading v-if="isLoading" />
-    <div v-else-if="errorMessage" class="text-red-500 font-bold">{{ errorMessage }}</div>
-    <div v-else class="flex flex-col gap-12">
-      <div>
-        <h1 class="text-2xl font-bold mb-4">Categories</h1>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <CategoryCard  v-for="category in categories" :key="category.id" :category />
-        </div>
-      </div>
-      <div>
-        <h1 class="text-2xl font-bold mb-4">Products</h1>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <ProductCard v-for="product in products" :key="product.id" :product />
-        </div>
-      </div>
-    </div>
-  </div>
-</template>

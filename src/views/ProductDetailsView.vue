@@ -1,6 +1,6 @@
 <template>
   <Loading v-if="isLoading" />
-  <div v-else-if="product" class="px-4 py-12 flex gap-10">
+  <div v-else-if="product" class="py-12 flex gap-10">
     <div class="relative overflow-hidden w-1/3 max-h-[500px] border rounded-lg">
       <div class="flex transition-transform duration-300 ease-in-out" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
         <div v-for="(gallery, index) in product.galleryImages" :key="index" class="w-full flex-shrink-0 h-auto">
