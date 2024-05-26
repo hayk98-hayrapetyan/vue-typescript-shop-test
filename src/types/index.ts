@@ -3,7 +3,7 @@ export interface Response<T> {
   count: number
   offset: number
   limit: number
-  items: T[]
+  items: T
 }
 
 export interface Category {
