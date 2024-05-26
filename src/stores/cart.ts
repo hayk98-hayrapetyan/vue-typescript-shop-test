@@ -6,6 +6,8 @@ export const useCartStore = defineStore('cart', () => {
 
   const getCount = computed(() => cardProducts.value.length)
 
+  const isProductAdded = (id: number) => cardProducts.value.includes(id)
+
   const updateLocalStorage = () => {
     localStorage.setItem('cardProducts', JSON.stringify(cardProducts.value))
   }
@@ -38,6 +40,7 @@ export const useCartStore = defineStore('cart', () => {
     addProductToCart,
     removeProductFromCart,
     setInitialItems,
-    resetCart
+    resetCart,
+    isProductAdded
   }
 })
