@@ -1,5 +1,6 @@
 <template>
   <Loading v-if="isLoading" />
+  <div v-else-if="errorMessage" class="text-red-500 font-bold">{{ errorMessage }}</div>
   <div v-else-if="product" class="py-12 flex gap-10">
     <div class="relative overflow-hidden w-1/3 max-h-[500px] border rounded-lg">
       <div
@@ -25,7 +26,7 @@
           @click="goToSlide(index)"
           :class="{ 'bg-gray-900': index === currentSlide, 'bg-gray-400': index !== currentSlide }"
           class="w-4 h-4 rounded-full"
-        ></button>
+        />
       </div>
     </div>
     <div class="w-2/3 flex flex-col gap-4">
@@ -58,6 +59,7 @@ const cartStore = useCartStore()
 const route = useRoute()
 const product = ref<Product>()
 const isLoading = ref(false)
+const errorMessage = ref<string>()
 const currentSlide = ref(0)
 
 const isAdded = computed(() => {
@@ -71,8 +73,8 @@ const fetchProduct = async (id: string) => {
     const response = await getProductById(+id)
 
     product.value = response.data
-  } catch (error) {
-    console.error('Failed to fetch product:', error)
+  } catch (_) {
+    errorMessage.value = 'Failed to load data. Please try again later.'
   } finally {
     isLoading.value = false
   }

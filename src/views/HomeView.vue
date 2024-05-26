@@ -30,9 +30,9 @@ import Loading from '@/components/Loading.vue'
 const isLoading = ref(false)
 const errorMessage = ref<string>()
 const categories = ref<Category[]>([])
-const products = ref<Product[]>([])
+const products = ref<Product[]>([]);
 
-;(async () => {
+(async () => {
   try {
     isLoading.value = true
     errorMessage.value = undefined

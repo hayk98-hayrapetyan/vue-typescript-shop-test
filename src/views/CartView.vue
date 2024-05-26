@@ -51,9 +51,9 @@ const handleOrder = () => {
   isOrdered.value = true
 
   cartStore.resetCart()
-}
+};
 
-;(async () => {
+(async () => {
   try {
     isLoading.value = true
 
