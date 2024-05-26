@@ -26,5 +26,18 @@ export const useCartStore = defineStore('cart', () => {
     updateLocalStorage()
   }
 
-  return { cardProducts, getCount, addProductToCart, removeProductFromCart, setInitialItems }
+  const resetCart = () => {
+    cardProducts.value = []
+
+    updateLocalStorage()
+  }
+
+  return {
+    cardProducts,
+    getCount,
+    addProductToCart,
+    removeProductFromCart,
+    setInitialItems,
+    resetCart
+  }
 })

@@ -16,7 +16,9 @@ if(cardProducts){
 <template>
   <div class="px-8 py-4">
     <header class="flex justify-between items-center">
-      <img alt="Vue logo" class="h-6" src="https://files.readme.io/13c53b7-small-Ecwid_LSLockup_BlackRGB_Ecwid_EN.png" height="24" />
+      <router-link to="/">
+        <img alt="Vue logo" class="h-6" src="https://files.readme.io/13c53b7-small-Ecwid_LSLockup_BlackRGB_Ecwid_EN.png" height="24" />
+      </router-link>
 
       <div class="wrapper">
         <nav class="flex gap-4">

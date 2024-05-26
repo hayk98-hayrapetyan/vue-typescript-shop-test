@@ -9,8 +9,8 @@
       </div>
       <div class="px-2 pt-4 pb-2 flex justify-between items-center">
         <span class="text-gray-900 font-bold text-xl">{{ product.defaultDisplayedPriceFormatted }}</span>
-        <button :disabled="isAdded" @click="cartStore.addProductToCart(product.id)" class="bg-blue-500 hover:bg-blue-700 disabled:bg-gray-400 hover:disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded">
-          Buy
+        <button :disabled="isAdded" @click="getButtonData.method(product.id)" class="bg-blue-500 hover:bg-blue-700 disabled:bg-gray-400 hover:disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded">
+          {{ getButtonData.text }}
         </button>
       </div>
     </div>
@@ -22,13 +22,36 @@ import { useCartStore } from '@/stores/cart'
 import { computed } from 'vue';
 
 const props = defineProps<{
-    product: Product
+    product: Product;
+    deletable?: boolean
 }>();
+
+const emit = defineEmits<{
+  (event: 'delete', value: number): void
+}>()
 
 const cartStore = useCartStore()
 
 const isAdded = computed(() => {
-  return cartStore.cardProducts.includes(props.product.id)
+  return !props.deletable && cartStore.cardProducts.includes(props.product.id)
+})
+
+const getButtonData = computed(() => {
+  if(props.deletable){
+    return {
+      text: 'Delete',
+      method: (id: number) => {
+        emit('delete', id);
+
+        cartStore.removeProductFromCart(id)
+      }
+    }
+  } else {
+    return {
+      text: "Buy",
+      method: cartStore.addProductToCart,
+    }
+  }
 })
 </script>   
   
