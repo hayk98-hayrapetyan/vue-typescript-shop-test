@@ -5,22 +5,15 @@
     </RouterLink>
     <div class="px-2 py-4">
       <RouterLink :to="`/product/${product.id}`" class="font-bold text-xl mb-2">
-      {{
-        product.name
-      }}
+        {{ product.name }}
       </RouterLink>
       <p class="text-gray-700 text-base line-clamp-4" v-html="product.description" />
     </div>
     <div class="px-2 pt-4 pb-2 flex justify-between items-center">
       <span class="text-gray-900 font-bold text-xl">
-        {{
-        product.defaultDisplayedPriceFormatted
-      }}
+        {{ product.defaultDisplayedPriceFormatted }}
       </span>
-      <AppButton
-        :disabled="isAdded"
-        @click="getButtonData.method(product.id)"
-      >
+      <AppButton :disabled="isAdded" @click="getButtonData.method(product.id)">
         {{ getButtonData.text }}
       </AppButton>
     </div>
@@ -31,7 +24,7 @@
 import type { Product } from '@/types'
 import { useCartStore } from '@/stores/cart'
 import { computed } from 'vue'
-import AppButton from '@/components/App/AppButton.vue';
+import AppButton from '@/components/App/AppButton.vue'
 
 const props = defineProps<{
   product: Product

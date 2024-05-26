@@ -1,6 +1,9 @@
 <template>
   <div v-if="product" class="flex gap-10">
-    <AppCarousel :slide-count="product.galleryImages.length" class="w-1/3 max-h-[500px] border rounded-lg">
+    <AppCarousel
+      :slide-count="product.galleryImages.length"
+      class="w-1/3 max-h-[500px] border rounded-lg"
+    >
       <div
         v-for="(gallery, index) in product.galleryImages"
         :key="index"
@@ -35,7 +38,7 @@ import { useRoute } from 'vue-router'
 import { getProductById } from '@/services/api'
 import { useCartStore } from '@/stores/cart'
 import AppCarousel from '@/components/App/AppCarousel.vue'
-import AppButton from '@/components/App/AppButton.vue';
+import AppButton from '@/components/App/AppButton.vue'
 
 const cartStore = useCartStore()
 const route = useRoute()

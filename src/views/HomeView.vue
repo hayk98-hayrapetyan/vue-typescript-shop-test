@@ -25,5 +25,5 @@ import CategoryCard from '@/components/Card/CategoryCard.vue'
 const [categoriesData, productsData] = await Promise.all([getCategories(), getProducts()])
 
 const categories = ref<Category[]>(categoriesData.data.items)
-const products = ref<Product[]>(productsData.data.items);
+const products = ref<Product[]>(productsData.data.items)
 </script>
