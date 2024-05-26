@@ -14,13 +14,13 @@
         @delete="handleDelete"
     />
     </div>
-    <button
+    <AppButton
     :disabled="!products.length"
     @click="handleOrder"
-    class="bg-blue-500 hover:bg-blue-700 disabled:bg-gray-400 hover:disabled:bg-gray-400 text-white font-bold py-2 px-4 mt-8 w-64 block mx-auto rounded"
+    class="mt-8 w-64 block mx-auto"
     >
     Place order
-    </button>
+    </AppButton>
 </div>
 </template>
 
@@ -29,6 +29,7 @@ import { ref } from 'vue'
 import { getProductById } from '@/services/api'
 import type { Product } from '@/types'
 import ProductCard from '@/components/Card/ProductCard.vue'
+import AppButton from '@/components/App/AppButton.vue';
 import { useCartStore } from '@/stores/cart'
 
 const cartStore = useCartStore()

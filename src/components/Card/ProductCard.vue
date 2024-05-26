@@ -4,22 +4,25 @@
       <img class="w-full h-48 object-cover" :src="product.thumbnailUrl" alt="Product image" />
     </RouterLink>
     <div class="px-2 py-4">
-      <RouterLink :to="`/product/${product.id}`" class="font-bold text-xl mb-2">{{
+      <RouterLink :to="`/product/${product.id}`" class="font-bold text-xl mb-2">
+      {{
         product.name
-      }}</RouterLink>
+      }}
+      </RouterLink>
       <p class="text-gray-700 text-base line-clamp-4" v-html="product.description" />
     </div>
     <div class="px-2 pt-4 pb-2 flex justify-between items-center">
-      <span class="text-gray-900 font-bold text-xl">{{
+      <span class="text-gray-900 font-bold text-xl">
+        {{
         product.defaultDisplayedPriceFormatted
-      }}</span>
-      <button
+      }}
+      </span>
+      <AppButton
         :disabled="isAdded"
         @click="getButtonData.method(product.id)"
-        class="bg-blue-500 hover:bg-blue-700 disabled:bg-gray-400 hover:disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded"
       >
         {{ getButtonData.text }}
-      </button>
+      </AppButton>
     </div>
   </div>
 </template>
@@ -28,6 +31,7 @@
 import type { Product } from '@/types'
 import { useCartStore } from '@/stores/cart'
 import { computed } from 'vue'
+import AppButton from '@/components/App/AppButton.vue';
 
 const props = defineProps<{
   product: Product
