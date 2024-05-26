@@ -9,7 +9,7 @@
       </div>
       <div class="px-2 pt-4 pb-2 flex justify-between items-center">
         <span class="text-gray-900 font-bold text-xl">{{ product.defaultDisplayedPriceFormatted }}</span>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button :disabled="isAdded" @click="cartStore.addProductToCart(product.id)" class="bg-blue-500 hover:bg-blue-700 disabled:bg-gray-400 hover:disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded">
           Buy
         </button>
       </div>
@@ -18,9 +18,17 @@
   
 <script setup lang="ts">
 import type { Product } from '@/types';
+import { useCartStore } from '@/stores/cart'
+import { computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
     product: Product
 }>();
+
+const cartStore = useCartStore()
+
+const isAdded = computed(() => {
+  return cartStore.cardProducts.includes(props.product.id)
+})
 </script>   
   
