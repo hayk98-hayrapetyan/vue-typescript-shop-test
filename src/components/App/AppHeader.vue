@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import CartIcon from '@/components/Icons/CartIcon.vue'
-import HomeIcon from '@/components/Icons/HomeIcon.vue'
 import { useCartStore } from '@/stores/cart'
 
 const cartStore = useCartStore()
@@ -18,19 +17,14 @@ const cartStore = useCartStore()
       />
     </RouterLink>
 
-    <nav class="flex gap-4">
-      <RouterLink to="/">
-        <HomeIcon class="h-6 shrink-0" />
-      </RouterLink>
-      <RouterLink to="/cart" class="relative inline-block">
+    <RouterLink to="/cart" class="relative inline-block">
         <CartIcon class="h-6 shrink-0" />
         <span
-          v-if="cartStore.getCount"
-          class="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 flex items-center justify-center rounded-full text-[10px] leading-[14px]"
+            v-if="cartStore.getCount"
+            class="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 flex items-center justify-center rounded-full text-[10px] leading-[14px]"
         >
-          {{ cartStore.getCount }}
+            {{ cartStore.getCount }}
         </span>
-      </RouterLink>
-    </nav>
+    </RouterLink>
   </header>
 </template>
