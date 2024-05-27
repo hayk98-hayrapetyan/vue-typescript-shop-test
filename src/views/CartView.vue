@@ -14,9 +14,7 @@
         @delete="handleDelete"
       />
     </div>
-    <AppButton @click="handleOrder" class="mt-8 w-64 block mx-auto">
-      Place order
-    </AppButton>
+    <AppButton @click="handleOrder" class="mt-8 w-64 block mx-auto"> Place order </AppButton>
   </div>
 </template>
 

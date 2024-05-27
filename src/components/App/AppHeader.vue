@@ -18,13 +18,13 @@ const cartStore = useCartStore()
     </RouterLink>
 
     <RouterLink to="/cart" class="relative inline-block">
-        <CartIcon class="h-6 shrink-0" />
-        <span
-            v-if="cartStore.getCount"
-            class="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 flex items-center justify-center rounded-full text-[10px] leading-[14px]"
-        >
-            {{ cartStore.getCount }}
-        </span>
+      <CartIcon class="h-6 shrink-0" />
+      <span
+        v-if="cartStore.getCount"
+        class="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 flex items-center justify-center rounded-full text-[10px] leading-[14px]"
+      >
+        {{ cartStore.getCount }}
+      </span>
     </RouterLink>
   </header>
 </template>
